@@ -72,10 +72,6 @@ RUN groupadd --gid=991 docker \
 
 USER    docker
 WORKDIR /home/docker
-
-# update bashrc for interactive use
-RUN echo "alias ll='ls -l --color=auto'" >> .bashrc
-
 COPY slurm.conf /usr/local/etc/slurm.conf
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
