@@ -9,7 +9,6 @@ on:
 
 env:
   IMAGE_TAG: latest
-  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -23,6 +22,7 @@ jobs:
       - name: login to registry
         uses: docker/login-action@v3
         with:
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: build image
