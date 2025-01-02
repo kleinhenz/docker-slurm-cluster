@@ -9,21 +9,32 @@ on:
 
 env:
   IMAGE_TAG: latest
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  permissions:
+    contents: read
+    packages: write
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Docker
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: login to registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: build image
         run: |
           docker version
           docker compose version
           docker compose build
           docker compose up -d
           docker ps
-      - name: Test Docker
+      - name: test docker
         run: |
-          docker exec -t slurmctld srun -n 4 hostname
+          docker exec -t slurmctld srun -N 2 hostname
