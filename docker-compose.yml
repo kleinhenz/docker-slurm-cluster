@@ -1,8 +1,8 @@
-version: "3.8"
-
 services:
   slurmctld:
-    image: jkleinh/slurm-cluster:latest
+    image: slurm-docker-cluster:${IMAGE_TAG}
+    build:
+      context: .
     command: ["slurmctld"]
     container_name: slurmctld
     hostname: slurmctld
@@ -13,7 +13,7 @@ services:
       - "6817"
 
   c1:
-    image: jkleinh/slurm-cluster:latest
+    image: slurm-docker-cluster:${IMAGE_TAG}
     command: ["slurmd"]
     hostname: c1
     container_name: c1
@@ -26,7 +26,7 @@ services:
       - "slurmctld"
 
   c2:
-    image: jkleinh/slurm-cluster:latest
+    image: slurm-docker-cluster:${IMAGE_TAG}
     command: ["slurmd"]
     hostname: c2
     container_name: c2

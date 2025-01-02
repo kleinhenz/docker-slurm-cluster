@@ -4,15 +4,15 @@ set -e
 if [ "$1" = "slurmctld" ]
 then
     echo "---> Starting the MUNGE Authentication service (munged) ..."
-    sudo -u munge /usr/local/sbin/munged
+    sudo -u munge /sbin/munged
     echo "---> Starting the Slurm Controller Daemon (slurmctld) ..."
-    exec sudo -u slurm /usr/local/sbin/slurmctld -Dvvv
+    exec sudo -u root /opt/slurm/sbin/slurmctld -Dvvv
 fi
 
 if [ "$1" = "slurmd" ]
 then
     echo "---> Starting the MUNGE Authentication service (munged) ..."
-    sudo -u munge /usr/local/sbin/munged
+    sudo -u munge /sbin/munged
 
     echo "---> Waiting for slurmctld to become active before starting slurmd..."
 
@@ -24,7 +24,7 @@ then
     echo "-- slurmctld is now active ..."
 
     echo "---> Starting the Slurm Node Daemon (slurmd) ..."
-    exec sudo -u root /usr/local/sbin/slurmd -Dvvv
+    exec sudo -u root /opt/slurm/sbin/slurmd -Dvvv
 fi
 
 exec "$@"
