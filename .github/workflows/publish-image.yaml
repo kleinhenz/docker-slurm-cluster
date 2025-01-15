@@ -29,7 +29,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=schedule,pattern=nightly
-            type=semver,pattern={{version}}
       - name: build and push image
         uses: docker/build-push-action@v6
         with:
