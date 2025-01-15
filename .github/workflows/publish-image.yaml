@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  test:
+  build-and-push:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
