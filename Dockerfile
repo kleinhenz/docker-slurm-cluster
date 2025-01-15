@@ -7,8 +7,6 @@ RUN dnf -y update \
     && dnf -y install \
     readline-devel \
     openssl-devel \
-    dbus-devel \
-    bpftrace \
     sudo \
     munge \
     munge-devel \
