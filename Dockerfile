@@ -15,7 +15,7 @@ RUN dnf -y update \
 
 FROM base AS builder
 
-RUN yum -y update \
+RUN dnf -y update \
     && yum -y install \
     gcc \
     python3 \
@@ -25,7 +25,8 @@ RUN yum -y update \
     automake \
     libtool \
     vim \
-    && yum clean all \
+    json-c-devel \
+    && dnf clean all \
     && rm -rf /var/cache/yum
 
 # install slurm
