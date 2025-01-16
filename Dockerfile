@@ -1,4 +1,4 @@
-FROM       rockylinux:9 as base
+FROM rockylinux:9 AS base
 MAINTAINER Joseph Kleinhenz <jkleinh@umich.edu>
 
 RUN dnf -y update \
@@ -13,7 +13,7 @@ RUN dnf -y update \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
-FROM base as builder
+FROM base AS builder
 
 RUN yum -y update \
     && yum -y install \
@@ -35,7 +35,7 @@ RUN mkdir -p /build/slurm && cd /build/slurm \
     && make \
     && make install
 
-FROM builder as slurm
+FROM builder AS slurm
 COPY --from=builder /opt/slurm /opt/slurm
 ENV PATH=/opt/slurm/bin:${PATH}
 
